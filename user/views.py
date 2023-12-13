@@ -7,15 +7,17 @@ from rest_framework.authtoken.models import Token
 
 # Registration View Template Rendering
 def registration(request):
-    if request.method == "POST":
-        content = requests.post(url='http://127.0.0.1:8000/user/api/register/', data=request.POST)
-        if content.status_code == 201:
-            messages.success(request, "Please Check your Email")
-            return redirect('login')
+    if request.user.is_authenticated:
+        return redirect('/')
+    else:
+        if request.method == "POST":
+            content = requests.post(url='http://127.0.0.1:8000/user/api/register/', data=request.POST)
+            if content.status_code == 201:
+                messages.success(request, "Please Check your Email")
+                return redirect('login')
+            
+        return render(request,'user/registration.html')
         
-    return render(request,'user/registration.html')
-
-
 # Login Rendering
 def login(request):
     if request.user.is_authenticated:
@@ -31,14 +33,11 @@ def login(request):
             data['username'] = request.POST["username"]
             data['password'] = request.POST["password"]
             content = requests.post(url="http://127.0.0.1:8000/user/api/login/", data=data)
-            # content = content.json()
-            print(content)
-            if content == 200:
+            if content.status_code == 200:
                 return redirect('/')
             return render(request,'user/login.html',{'content':content})
         return render(request,'user/login.html')
-
-        
+      
 #Logout View 
 def logout(request):
     if request.user.is_authenticated:

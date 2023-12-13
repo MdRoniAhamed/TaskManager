@@ -9,9 +9,9 @@
           </a>
   
           <!-- Search form -->
-          <form class="d-flex input-group w-auto my-auto">
-            <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search"
-              style="min-width: 125px" />
+          <form class="d-flex input-group w-auto my-auto" action="{% url 'search' %}" method="get">
+            <input autocomplete="off" type="search" value="{{search}}" class="form-control rounded" placeholder="Search"
+              style="min-width: 125px" name="search" />
             <span class="input-group-text border-0 d-none d-md-flex"><i class="fas fa-search"></i></span>
           </form>
         </div>

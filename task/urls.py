@@ -8,4 +8,6 @@ urlpatterns = [
     path('add/',v.add_task, name='add_task'),
     path('<int:pk>/',v.delete_task, name='delete'),
     path('complete/<int:pk>/',v.completed, name='complete'),
+    path('searching/',v.Searching, name='search'),
+    path('filtering/',v.filtering, name='filter'),
 ]

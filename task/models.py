@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 import datetime
-
+# from datetime import *
 # Priority Choice 
+from django.utils import timezone
 CHOICE = (
     ('low','Low'),
     ('medium','Medium'),
@@ -14,7 +16,7 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user", blank=True, null=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    start_date = models.DateTimeField(blank=True,null=True)
+    start_date = models.DateTimeField(default=timezone.now,blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
     priority = models.CharField(max_length=50,choices=CHOICE)
     complete = models.BooleanField(default=False,blank=True,null=True)
